@@ -1,6 +1,4 @@
-# Avances
-
-## Descripción
+# Descripción
 Documentación y finalización del proyecto final [Fase 3]
 
 ## Repositorio relacionado
