@@ -1,0 +1,68 @@
+Sumas comportamentales
+module Sum_com4b(
+    input  [3:0] A,
+    input  [3:0] B,
+    input  Cin,
+    output [3:0] C,
+    output Cout
+);
+
+    assign {Cout, C} = A + B + Cin;
+
+endmodule
+
+module Tb_Sum4b;
+
+ 	reg [3:0] A;
+ 	reg [3:0] B;
+ 	reg Cin;
+ 	wire [3:0] C;
+ 	wire Cout;
+ 
+ 	Sum_com4b sum4 (.A(A), .B(B), .Cin (Cin), .C(C), .Cout(Cout));
+ 
+ 		initial begin
+ 		#10 A=3; B=4; Cin=0;
+ 		#10 A=4; B=6; Cin=0;
+ 		#10 A=2; B=5; Cin=0;
+ 		#10 A=3; B=7; Cin=0;
+ 		#10 A=4; B=5; Cin=0;
+ 		$stop;
+ 		end
+ 
+endmodule
+
+module Sum_com8b (
+    input  [7:0] a,
+    input  [7:0] b,
+    input cin,
+    output [8:0] c,
+    output cout);
+ 
+ 	wire acar;
+ 	Sum_com4b s1 (.A(a[3:0]), .B(b[3:0]),.Cin (cin), .C(c[3:0]), .Cout(acar));
+ 	Sum_com4b s2 (.A(a[7:4]), .B(b[7:4]),.Cin (acar), .C(c[7:4]), .Cout(cout));
+ 
+endmodule
+
+module Tb_Sum8b;
+
+ 	reg [7:0] a;
+ 	reg [7:0] b;
+ 	reg cin;
+ 	wire [7:0] c;
+ 	wire cout;
+ 
+ 	Sum_com8b s1 (.a(a), .b(b),.cin (cin), .c(c), .cout(cout));
+ 
+ 		initial begin
+ 		a=0; b=0; cin=0;
+ 		#10 a=2; b=5; cin=0;
+ 		#10 a=3; b=4; cin=0;
+ 		#10 a=4; b=8; cin=0;
+ 		#10 a=2; b=5; cin=0;
+ 		#10 a=2; b=5; cin=0;
+ 		$stop;
+ 		end
+ 
+endmodule

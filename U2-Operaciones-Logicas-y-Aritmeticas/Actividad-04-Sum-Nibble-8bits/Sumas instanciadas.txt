@@ -1,0 +1,48 @@
+Sumas instanciadas
+module m_HA (input A, input B,  output o_and, output o_xor);
+
+ 	assign o_and = A & B;
+ 	assign o_xor =  A ^ B;
+ 
+endmodule
+
+module m_FA(input a, input b, input ci,  output s, output co);
+ 
+ 	wire c1,c2,c3;
+ 
+ 	m_HA HA1 (.A(a), .B(b), .o_and(c2), .o_xor(c1));
+ 	m_HA HA2 (.A(c2), .B(ci), .o_and(s), .o_xor(c3));
+ 
+ 	assign co = c1 | c3;
+
+endmodule
+
+module sum_instancia4b (
+    input  [3:0] A,
+    input  [3:0] B,
+    input Ci,
+    output [3:0] S,
+    output Co);
+
+    wire c1, c2, c3;
+
+    m_FA FA0 (.a(A[0]), .b(B[0]), .ci(Ci),  .s(S[0]), .co(c1));
+    m_FA FA1 (.a(A[1]), .b(B[1]), .ci(c1),  .s(S[1]), .co(c2));
+    m_FA FA2 (.a(A[2]), .b(B[2]), .ci(c2),  .s(S[2]), .co(c3));
+    m_FA FA3 (.a(A[3]), .b(B[3]), .ci(c3),  .s(S[3]), .co(Co));
+
+endmodule
+
+module sum_instancia8b (
+    input  [7:0] A,
+    input  [7:0] B,
+    input Ci,
+    output [7:0] S,
+    output Co);
+
+wire c4;
+
+    sum_instancia4b suma1 (.A(A[3:0]), .B(B[3:0]), .Ci(Ci),  .S(S[3:0]), .Co(c4));
+    sum_instancia4b suma2 (.A(A[7:4]), .B(B[7:4]), .Ci(c4), .S(S[7:4]), .Co(Co));
+
+endmodule
